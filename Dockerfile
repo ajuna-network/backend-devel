@@ -22,4 +22,4 @@ RUN chmod +x /demo/launch.sh
 COPY --from=build /workspace/worker/bin/integritee-service /demo/integritee-service
 COPY --from=build /workspace/worker/bin/enclave.signed.so /demo/enclave.signed.so
 COPY --from=build /workspace/ajuna-node/target/release/ajuna /demo/ajuna
-ENTRYPOINT ["/bin/bash", "-c", "./launch.sh"]
+
