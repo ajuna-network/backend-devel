@@ -19,7 +19,7 @@ services:
       ./integritee-service init-shard
       && ./integritee-service shielding-key
       && ./integritee-service signing-key
-      && ./integritee-service  -u ws://host.docker.internal -r 3485 run --dev --skip-ra"
+      && ./integritee-service  -u ws://host.docker.internal run --dev --skip-ra"
     ports:
       - 2000:2000
       - 3443:3443
