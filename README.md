@@ -8,12 +8,20 @@ Builds two docker images, and composes them into one contaier. One being the `aj
 - The above are included with Docker Desktop(Windows/OSX)
 - Intel Host (unfortunately the worker build will fail on M1)
 
-### Run
+### Build
 Within root folder of repository
 
 `docker-compose up -d` as daemon or `docker-compose up`
 
 The RPC port 9944 for `ajuna-node` is exposed.
+
+### Run Connect Four Demo script
+To attach to the running `worker` container:
+
+`docker exec -it worker-node-connect-four-worker-1 /bin/bash`
+
+To run the demo:
+`./demo_connect_four.sh`
 
 ### Stop
 Within root folder of repository
