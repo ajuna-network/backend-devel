@@ -6,26 +6,22 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.node
-    command: "tail -F /dev/null" 
+    command: ./ajuna --dev --tmp --unsafe-ws-external --unsafe-rpc-external
+    ports:
+      - 9944:9944
+
   worker:
     image: demo/worker
     build:
       context: .
       dockerfile: Dockerfile.integritee
-    command: "tail -F /dev/null"
-  
-  mono:
-    depends_on:
-      - ajuna-node
-      - worker
-    image: demo/mono
-    build:
-      context: .
-      dockerfile: Dockerfile.mono
+    command: /bin/bash -c "
+      ./integritee-service init-shard
+      && ./integritee-service shielding-key
+      && ./integritee-service signing-key
+      && ./integritee-service --ws-external -u ws://host.docker.internal run --dev --skip-ra"
     ports:
-      - 9944:9944
       - 2000:2000
       - 3443:3443
       - 8787:8787
       - 2001:2001
-    command: ["/bin/bash", "-c", "./launch.sh"]
