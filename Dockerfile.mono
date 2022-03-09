@@ -7,6 +7,8 @@ RUN chmod u+x launch.sh
 COPY --from=node /node/ajuna ajuna
 COPY --from=worker /service/spid.txt spid.txt
 COPY --from=worker /service/key.txt key.txt
+COPY /service/end.fullchain end.fullchain
+COPY /service/bin/end.rsa end.rsa 
 COPY --from=worker /service/integritee-service integritee-service
 COPY --from=worker /service/enclave.signed.so enclave.signed.so
 COPY --from=worker /service/integritee-cli integritee-cli
