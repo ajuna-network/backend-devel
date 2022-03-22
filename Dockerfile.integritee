@@ -3,18 +3,21 @@ FROM integritee/integritee-dev:0.1.9 as build
 RUN git config --global credential.helper store
 WORKDIR /workspace
 COPY ./worker .
-# WARNING, this token should be managed as a secret
-RUN echo "https://andy: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@github.com" > ~/.git-credentials
+# IMPORTANT - UPDATE username:password, where password is a personal access token, see https://github.com/settings/tokens 
+RUN echo "https://username:password@github.com" > ~/.git-credentials
 RUN rustup show
 RUN CARGO_NET_GIT_FETCH_WITH_CLI=true SGX_MODE=SW make
 
 # produce a 'production' image
 FROM integritee/integritee-dev:0.1.9
 WORKDIR /service
-COPY ./spid.txt /service
-COPY ./key.txt /service
-
-COPY --from=build /workspace/bin/integritee-service /service/integritee-service
-COPY --from=build /workspace/bin/enclave.signed.so /service/enclave.signed.so
-COPY --from=build /workspace/bin/integritee-cli /service/integritee-cli
+COPY ./spid.txt .
+COPY ./key.txt .
+COPY ./worker/bin/end.fullchain .
+COPY ./worker/bin/end.rsa .
+COPY ./demo_connect_four.sh .
+RUN chmod u+x /service/demo_connect_four.sh
+COPY --from=build /workspace/bin/integritee-service integritee-service
+COPY --from=build /workspace/bin/enclave.signed.so enclave.signed.so
+COPY --from=build /workspace/bin/integritee-cli integritee-cli
 

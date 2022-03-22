@@ -3,7 +3,7 @@ FROM integritee/integritee-dev:0.1.9 as build
 WORKDIR /workspace
 COPY ./ajuna-node .
 RUN rustup show
-RUN cargo build --release
+RUN cargo build --release --features skip-ias-check
 
 # produce a 'production' image
 FROM integritee/integritee-dev:0.1.9

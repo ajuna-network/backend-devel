@@ -1,7 +1,6 @@
 #!/bin/bash
-./ajuna --dev --tmp &
-sleep 5
+./ajuna --dev --tmp --unsafe-ws-external --unsafe-rpc-external &
 ./integritee-service init-shard
 ./integritee-service shielding-key
 ./integritee-service signing-key
-./integritee-service -r 3485 run --dev --skip-ra
+./integritee-service --ws-external run --dev --skip-ra
