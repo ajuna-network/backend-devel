@@ -48,7 +48,7 @@ echo "Using trusted-worker-port ${RPORT}"
 
 BALANCE=1000
 
-CLIENT="./integritee-cli -p ${NPORT} -P ${RPORT} -u ws://host.docker.internal -U wss://host.docker.internal"
+CLIENT="./integritee-cli -p ${NPORT} -P ${RPORT} -u ws://ajuna-node"
 
 if [ "$READMRENCLAVE" = "file" ]
 then
