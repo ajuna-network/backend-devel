@@ -10,14 +10,27 @@ Builds two docker images, and composes them into one contaier. One being the `aj
 
 ## Setup
 
-Within `Dockerfile.integritee` update `username:password` with your personal access token, see https://github.com/settings/tokens, this provides access to the ajuna-node repository.
-
 The node and worker are submodules, first initialise and update them:
 
 `git submodule init`  
 `git submodule update`
 
 Please confirm that both repositories have cloned correctly before continuiing
+
+Within `Dockerfile.integritee` update `username:password` with your personal access token, see https://github.com/settings/tokens, this provides access to the ajuna-node repository.
+
+The worker is proxied with `ngrok`, you can either connect to a TLS websocket server or plain socket.  You will need to supply your Auth Token from https://ngrok.com/ within the `.env` file.  Accounts are free, and the URL the worker is behind will appear in the start up log for the worker, something like this:
+
+```
+worker_1      | t=2022-05-09T11:52:49+0000 lvl=info msg="started tunnel" obj=tunnels name="command_line (http)" addr=https://localhost:2000 url=http://79b4-20-107-17-237.ngrok.io
+worker_1      | t=2022-05-09T11:52:49+0000 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=https://localhost:2000 url=https://79b4-20-107-17-237.ngrok.io
+```
+
+Logs can be viewed with:
+
+`docker logs worker-node-connect-four_worker_1`
+
+You can either take the TLS or plain connection.  You may also see other useful information such as the MRENCLAVE
 
 ## Build
 Within root folder of repository
@@ -29,7 +42,7 @@ The RPC port 9944 for `ajuna-node` is exposed.
 ## Run Connect Four Demo script
 To attach to the running `worker` container:
 
-`docker exec -it worker-node-connect-four-worker-1 /bin/bash`
+`docker exec -it worker-node-connect-four_worker_1 /bin/bash`
 
 To run the demo:
 `./demo_connect_four.sh`
