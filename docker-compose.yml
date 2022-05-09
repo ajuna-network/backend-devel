@@ -13,6 +13,9 @@ services:
 
   worker:
     image: democonnectfour.azurecr.io/worker
+    volumes:
+      - ./ngrok-stable-linux-amd64.tgz:/proxy/ngrok.tgz
+      - ./proxy.sh:/proxy/proxy.sh
     build:
       context: .
       dockerfile: Dockerfile.integritee
@@ -20,10 +23,13 @@ services:
       rm -f light_client_db.bin
       && rm -fr shards
       && rm -fr sidechain_db
+      && tar zvfx /proxy/ngrok.tgz
+      && ./ngrok authtoken ${AUTHTOKEN} 
       && ./integritee-service init-shard
       && ./integritee-service shielding-key
       && ./integritee-service signing-key
       && sleep 10
+      && /proxy/proxy.sh
       && ./integritee-service --ws-external -u ws://ajuna-node run --dev --skip-ra"
     ports:
       - 2000:2000
