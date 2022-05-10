@@ -4,7 +4,7 @@ RUN git config --global credential.helper store
 WORKDIR /workspace
 COPY ./worker .
 # IMPORTANT - UPDATE username:password, where password is a personal access token, see https://github.com/settings/tokens 
-RUN echo "https://username:password@github.com" > ~/.git-credentials
+RUN echo "https://andy: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@github.com" > ~/.git-credentials
 RUN rustup show
 RUN CARGO_NET_GIT_FETCH_WITH_CLI=true SGX_MODE=SW make
 
