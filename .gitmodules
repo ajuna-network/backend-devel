@@ -1,6 +1,7 @@
 [submodule "worker"]
 	path = worker
 	url = https://github.com/ajuna-network/worker.git
-[submodule "ajuna-node"]
-	path = ajuna-node
-	url = https://github.com/ajuna-network/ajuna-node.git
+[submodule "Ajuna"]
+	path = Ajuna
+	url = https://github.com/ajuna-network/Ajuna.git
+	branch = ab/integration-runner
