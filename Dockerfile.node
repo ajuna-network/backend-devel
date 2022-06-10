@@ -1,12 +1,12 @@
 # Create a docker image with the node
 FROM integritee/integritee-dev:0.1.9 as build
 WORKDIR /workspace
-COPY ./ajuna-node .
+COPY ./Ajuna .
 RUN rustup show
 RUN cargo build --release --features skip-ias-check
 
 # produce a 'production' image
 FROM integritee/integritee-dev:0.1.9
 WORKDIR /node
-COPY --from=build /workspace/target/release/ajuna /node/ajuna
+COPY --from=build /workspace/target/release/ajuna-solo /node/ajuna
 
