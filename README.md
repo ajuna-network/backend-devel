@@ -17,8 +17,6 @@ The node and worker are submodules, first initialise and update them:
 
 Please confirm that both repositories have cloned correctly before continuiing
 
-Within `Dockerfile.integritee` update `username:password` with your personal access token, see https://github.com/settings/tokens, this provides access to the ajuna-node repository.
-
 The worker is proxied with `ngrok`, you can either connect to a TLS websocket server or plain socket.  You will need to supply your Auth Token from https://ngrok.com/ within the `.env` file.  Accounts are free, and the URL the worker is behind will appear in the start up log for the worker, something like this:
 
 ```
