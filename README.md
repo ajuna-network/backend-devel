@@ -1,6 +1,6 @@
-# Connect Four Demo
+# Backend development environment
 
-Builds two docker images, and composes them into one contaier. One being the `ajuna-node` and the other being the `worker` built in simulation mode(SW).
+Builds two docker images, and composes them into one network. One being the `ajuna-node` and the other being the `worker` built in simulation mode(SW).
 
 ## Prerequistes
 - Docker v20.10.12+
@@ -37,13 +37,10 @@ Within root folder of repository
 
 The RPC port 9944 for `ajuna-node` is exposed.
 
-## Run Connect Four Demo script
+## Connect to running worker
 To attach to the running `worker` container:
 
 `docker exec -it worker-node-connect-four_worker_1 /bin/bash`
-
-To run the demo:
-`./demo_connect_four.sh`
 
 ## Stop
 Within root folder of repository
