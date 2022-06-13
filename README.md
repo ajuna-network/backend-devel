@@ -26,7 +26,7 @@ worker_1      | t=2022-05-09T11:52:49+0000 lvl=info msg="started tunnel" obj=tun
 
 Logs can be viewed with:
 
-`docker logs worker-node-connect-four_worker_1`
+`docker logs backend-devel_worker_1`
 
 You can either take the TLS or plain connection.  You may also see other useful information such as the MRENCLAVE
 
@@ -40,7 +40,7 @@ The RPC port 9944 for `ajuna-node` is exposed.
 ## Connect to running worker
 To attach to the running `worker` container:
 
-`docker exec -it worker-node-connect-four_worker_1 /bin/bash`
+`docker exec -it backend-devel_worker_1 /bin/bash`
 
 ## Stop
 Within root folder of repository
