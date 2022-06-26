@@ -1,2 +1,2 @@
 #!/bin/sh
-./ngrok http --log=stdout https://localhost:2000 &
+./ngrok start --log=stdout --config=ngrok-backend.yml ajuna-node ajuna-worker &

@@ -1,0 +1,11 @@
+authtoken: 28kHTCrXN7yiugmX6SrqZFYAfGh_7syQaVjpSjaw7PybdwunM
+
+tunnels:
+    ajuna-node:
+        proto: http
+        addr: 9944
+        subdomain: ajuna-node
+    ajuna-worker:
+        proto: http
+        addr: 2000
+        subdomain: ajuna-worker
