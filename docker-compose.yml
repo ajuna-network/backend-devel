@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   ajuna-node:
-    image: backend-devel.azurecr.io/node
+    image: andyajuna/ajuna-node
     build:
       context: .
       dockerfile: Dockerfile.node
@@ -12,7 +12,7 @@ services:
       - 9933:9933
 
   worker:
-    image: backend-devel.azurecr.io/worker
+    image: andyajuna/ajuna-worker
     volumes:
       - ./ngrok-stable-linux-amd64.tgz:/proxy/ngrok.tgz
       - ./proxy.sh:/proxy/proxy.sh
