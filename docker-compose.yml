@@ -44,3 +44,12 @@ services:
       - 3443:3443
       - 8787:8787
       - 2001:2001
+
+  polkadot-ui:
+    image: jacogr/polkadot-js-apps:latest
+    links:
+      - ajuna-node
+    environment:
+      - WS_URL=ws://localhost:9944
+    ports:
+      - 80:80

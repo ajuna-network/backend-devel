@@ -46,7 +46,7 @@ Within root folder of repository
 
 `docker-compose up --build -d` as daemon or `docker-compose up --build`
 
-The RPC port 9944 for `ajuna-node` is exposed.
+The RPC port 9944 for `ajuna-node` is exposed as well as UI via http://localhost/#/explorer
 
 ## Connect to running worker
 
