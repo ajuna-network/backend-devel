@@ -48,6 +48,8 @@ Within root folder of repository
 
 The RPC port 9944 for `ajuna-node` is exposed as well as UI via http://localhost/#/explorer
 
+`DOCKER_BUILDKIT=1 docker-compose up --build`
+
 ## Connect to running worker
 
 To attach to the running `worker` container:
