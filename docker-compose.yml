@@ -4,9 +4,12 @@ services:
   ajuna-node:
     image: backend-devel.azurecr.io/node
     build:
-      context: .
-      dockerfile: Dockerfile.node
-    command: ./ajuna --dev --tmp --unsafe-ws-external --unsafe-rpc-external
+      context: ./Ajuna
+      dockerfile: docker/Dockerfile
+      args:
+        - features=solo,skip-ias-check
+        - bin=ajuna-solo
+    command: --dev --tmp --unsafe-ws-external --unsafe-rpc-external
     ports:
       - 9944:9944
       - 9933:9933
@@ -16,15 +19,20 @@ services:
     volumes:
       - ./ngrok-stable-linux-amd64.tgz:/proxy/ngrok.tgz
       - ./proxy.sh:/proxy/proxy.sh
+      - ./key.txt:/root/work/worker/bin/key.txt
+      - ./spid.txt:/root/work/worker/bin/spid.txt
+      - ./demo_connect_four.sh:/root/work/worker/bin/demo_connect_four.sh
     build:
-      context: .
-      dockerfile: Dockerfile.integritee
+      context: ./worker
+      dockerfile: build.Dockerfile
+      target: builder
     command: /bin/bash -c "
-      rm -f light_client_db.bin
+      cd /root/work/worker/bin
+      && rm -f light_client_db.bin
       && rm -fr shards
       && rm -fr sidechain_db
       && tar zvfx /proxy/ngrok.tgz
-      && ./ngrok authtoken ${AUTHTOKEN} 
+      && ./ngrok authtoken ${AUTHTOKEN}
       && ./integritee-service init-shard
       && ./integritee-service shielding-key
       && ./integritee-service signing-key
