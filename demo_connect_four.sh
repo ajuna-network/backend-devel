@@ -86,81 +86,54 @@ sleep 1
 echo "Queue Game for Alice (Player 1)"
 ${CLIENT} queue-game ${ACCOUNTALICE}
 echo ""
-sleep 1
 
 echo "Queue Game for Bob (Player 2)"
 ${CLIENT} queue-game ${ACCOUNTBOB}
 echo ""
-sleep 1
 
-echo "waiting"
+echo "Waiting for matchmaking and game to be created"
 sleep 45
+echo ""
 
+echo "* Bomb phase starts"
 echo "Turn for Alice (Player 1)"
-${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct play-turn ${ACCOUNTALICE} 3
+${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-bomb ${ACCOUNTALICE} 0 0
+${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-bomb ${ACCOUNTALICE} 0 1
+${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-bomb ${ACCOUNTALICE} 0 2
 echo ""
-sleep 1
-
 echo "Turn for Bob (Player 2)"
-${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct play-turn ${ACCOUNTBOB} 4
+${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-bomb ${ACCOUNTBOB}   0 0
+${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-bomb ${ACCOUNTBOB}   0 1
+${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-bomb ${ACCOUNTBOB}   0 2
 echo ""
-sleep 1
 
-echo "Turn for Alice (Player 1)"
-${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct play-turn ${ACCOUNTALICE} 2
+echo "* Stone phase starts"
+echo "** Turn 1"
+echo "Turn for Bob (Player 2)" # triggers bomb(s)
+${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-stone ${ACCOUNTBOB} north 0
 echo ""
-sleep 1
-
-echo "Turn for Bob (Player 2)"
-${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct play-turn ${ACCOUNTBOB} 3
+echo "Turn for Alice (Player 1)" # triggers bomb(s)
+${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-stone ${ACCOUNTALICE} north 0
 echo ""
-sleep 1
 
-echo "waiting"
-sleep 5
+for i in 2 3 4 5; do
+    echo "** Turn $i"
+    echo "Turn for Bob (Player 2)"
+    ${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-stone ${ACCOUNTBOB} west 2
+    echo ""
+    echo "Turn for Alice (Player 1)"
+    ${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct drop-stone ${ACCOUNTALICE} north 2
+    echo ""
+done
 
-echo "Board after 2 turns"
-${CLIENT} trusted --mrenclave ${MRENCLAVE} get-board ${ACCOUNTBOB}
-echo ""
-sleep 1
-
-
-echo "Turn for Alice (Player 1)"
-${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct play-turn ${ACCOUNTALICE} 2
-echo ""
-sleep 1
-
-echo "Turn for Bob (Player 2)"
-${CLIENT} trusted  --mrenclave ${MRENCLAVE} --direct play-turn ${ACCOUNTBOB} 5
-sleep 1
-
-echo "Turn for Alice (Player 1)"
-${CLIENT} trusted --mrenclave  ${MRENCLAVE}  --direct  play-turn ${ACCOUNTALICE} 2
-echo ""
-sleep 1
-
-echo "Turn for Bob (Player 2)"
-${CLIENT} trusted --mrenclave ${MRENCLAVE} --direct  play-turn ${ACCOUNTBOB} 1
-echo ""
-sleep 1
-
-echo "waiting"
-sleep 5
-
-echo "Board after 4 turns"
-${CLIENT} trusted --mrenclave ${MRENCLAVE} get-board ${ACCOUNTBOB}
-echo ""
-sleep 1
-
-echo "Turn for Alice  (Player 1)"
-${CLIENT} trusted --mrenclave  ${MRENCLAVE} --direct  play-turn ${ACCOUNTALICE} 2
-echo ""
-sleep 1
-
-echo "waiting"
-sleep 5
-
+echo "* Game finishes"
 echo "Board after end of game"
 ${CLIENT} trusted --mrenclave ${MRENCLAVE} get-board ${ACCOUNTBOB}
 echo ""
 
+echo "Wait for board to be cleared"
+sleep 45
+
+echo "Fetch board again to see it fail:"
+${CLIENT} trusted --mrenclave ${MRENCLAVE} get-board ${ACCOUNTBOB}
+echo ""
