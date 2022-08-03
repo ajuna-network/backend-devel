@@ -58,7 +58,7 @@ To attach to the running `worker` container:
 
 To run scripts inside the container:
 
-`cd ./bin && ./demo_connect_four.sh`
+`cd ./bin && ./dot4_gravity.sh`
 
 ## Stop
 
