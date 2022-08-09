@@ -22,6 +22,7 @@ services:
       - ./key.txt:/root/work/worker/bin/key.txt
       - ./spid.txt:/root/work/worker/bin/spid.txt
       - ./demo_connect_four.sh:/root/work/worker/bin/demo_connect_four.sh
+      - ./dot4_gravity.sh:/root/work/worker/bin/dot4_gravity.sh
     build:
       context: ./worker
       dockerfile: build.Dockerfile
