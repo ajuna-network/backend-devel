@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.node
+    environment:
+      - RUST_LOG=pallet_ajuna_gameregistry=debug
     command: ./ajuna --dev --tmp --unsafe-ws-external --unsafe-rpc-external
     ports:
       - 9944:9944
